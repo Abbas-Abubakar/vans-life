@@ -506,6 +506,7 @@ i[class*='van-type-'] {
 
 .login-form button:disabled {
     background-color: #FFCC8D;
+    cursor: not-allowed;
 }
 
 .red {
