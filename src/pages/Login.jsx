@@ -10,6 +10,9 @@ export async function action({ request }) {
   const formData = await request.formData()
   const email = formData.get("email")
   const password = formData.get("password")
+  const pathname = new URL(request.url).searchParams.get("redirectTo") || "/host"
+  console.log(pathname);
+  
   try {
       const data = await loginUser({ email, password })
       localStorage.setItem("loggedIn", true)
@@ -17,7 +20,7 @@ export async function action({ request }) {
       return err.message
     }
     
-    throw redirect("/host");
+    // throw redirect(pathname);
 }
 
 export default function Login() {
