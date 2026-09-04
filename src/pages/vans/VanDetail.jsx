@@ -1,19 +1,37 @@
-import { useEffect, useState } from "react"
-import { useLocation, useParams, Link, useLoaderData } from "react-router-dom"
-import { getVans } from "../../api"
 
-export function loader({ params }){
-  return getVans(params.id)
+import { useLocation, Link, useLoaderData } from "react-router-dom"
+import { getVans } from "../../api"
+import { Suspense, use } from "react"
+
+export function loader({ params }) {
+  return { van: getVans(params.id) }
 }
 
 const VanDetail = () => {
-  
+
+  const dataPromise = useLoaderData()
+
   const location = useLocation()
-  
+
   const search = `?${location.state?.search}` || ""
   const type = location.state?.type || "all"
-  
-  const van = useLoaderData()
+
+  function Van({ vanPromise }) {
+    const van = use(vanPromise)
+    
+    return (
+      <div className="van-detail">
+        <img alt={van.name} src={van.imageUrl} />
+        <i className={`van-type ${van.type} selected`}>
+          {van.type}
+        </i>
+        <h2>{van.name}</h2>
+        <p className="van-price"><span>${van.price}</span>/day</p>
+        <p>{van.description}</p>
+        <button className="link-button">Rent this van</button>
+      </div>
+    )
+  }
 
   return (
     <div className="van-detail-container">
@@ -22,16 +40,9 @@ const VanDetail = () => {
         relative="path"
         className="back-button"
       >&larr; <span>Back to {type} vans</span></Link>
-        <div className="van-detail">
-          <img alt={van.name} src={van.imageUrl} />
-          <i className={`van-type ${van.type} selected`}>
-            {van.type}
-          </i>
-          <h2>{van.name}</h2>
-          <p className="van-price"><span>${van.price}</span>/day</p>
-          <p>{van.description}</p>
-          <button className="link-button">Rent this van</button>
-        </div>
+      <Suspense fallback={<h2>Loading van...</h2>}>
+        <Van vanPromise={dataPromise.van}/>
+      </Suspense>
     </div>
   )
 }

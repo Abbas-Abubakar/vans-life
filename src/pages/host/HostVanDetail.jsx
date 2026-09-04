@@ -1,16 +1,15 @@
 import { Link, NavLink, Outlet, useLoaderData } from "react-router-dom"
 import { getHostVans } from "../../api"
 import { requireAuth } from "../../utils"
+import { Suspense, use } from "react"
 
 export async function loader({ params }) {
-  // const { isLoggedIn } = await requireAuth()
-  // if (!isLoggedIn) return null
-  await requireAuth()
-  return getHostVans(params.id)
+
+  return {hostVan: getHostVans(params.id)}
 }
 
 const HostVanDetail = () => {
-  const currentVan = useLoaderData()
+  const dataPromise = useLoaderData()
 
   const activeStyles = {
     fontWeight: "bold",
@@ -18,15 +17,11 @@ const HostVanDetail = () => {
     color: "#161616"
   }
 
-  return (
-    <section>
-      <Link
-        to=".."
-        relative="path"
-        className="back-button"
-      >&larr; <span>Back to all vans</span></Link>
+  function HostVan ({ vanPromise }){
+    const currentVan = use(vanPromise)
 
-      <div className="host-van-detail-layout-container">
+    return (
+       <div className="host-van-detail-layout-container">
         <div className="host-van-detail">
           <img src={currentVan.imageUrl} />
           <div className="host-van-detail-info-text">
@@ -63,17 +58,22 @@ const HostVanDetail = () => {
         </nav>
         <Outlet context={{ currentVan }} />
       </div>
+    )
+  }
+
+  return (
+    <section>
+      <Link
+        to=".."
+        relative="path"
+        className="back-button"
+      >&larr; <span>Back to all vans</span></Link>
+      <Suspense fallback={<h2>Loading van...</h2>}>
+        <HostVan vanPromise={dataPromise.hostVan}/>
+      </Suspense>
+     
     </section>
   )
 }
 
 export default HostVanDetail
-
-/**
- * Challenge: check out the docs linked in the slide, and see if you
- * can implement the Outlet Context feature it talks about.
- * 
- * Part of this challenge will require you to (finally) build out those
- * nested components. Again, if you don't need CSS practice, you can
- * skip the styling part, and I'll handle that for you.
- */
