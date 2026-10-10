@@ -31,6 +31,11 @@ const Header = () => {
         <NavLink to="/vans" style={({ isActive }) => isActive ? activeStyles : null}>
           Vans
         </NavLink>
+         {user && (
+          <NavLink to="/trips" style={({ isActive }) => isActive ? activeStyles : null}>
+            Trips
+          </NavLink>
+        )}
         {!loading && (
           user ? (
             <button className="logout-button" onClick={handleLogout}>

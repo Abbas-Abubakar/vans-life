@@ -7,20 +7,23 @@ import About from "./pages/About"
 import Vans, { loader as vansLoader } from "./pages/vans/Vans"
 import VanDetail, { loader as vanDetailLoader } from "./pages/vans/VanDetail"
 import HostLayout from "./components/HostLayout"
-import Dashboard from "./pages/host/Dashboard"
-import Income from "./pages/host/Income"
-import Reviews from "./pages/host/Reviews"
+import Dashboard, { loader as dashboardLoader } from "./pages/host/Dashboard"
+import Income, {loader as incomeLoader} from "./pages/host/Income"
+import Reviews, { loader as reviewsLoader } from "./pages/host/Reviews"
 import HostVans, { loader as hostVansLoader } from "./pages/host/HostVans"
 import HostVanDetail, { loader as hostVanDetailLoader, deleteAction } from "./pages/host/HostVanDetail"
 import HostVanInfo from "./pages/host/HostVanInfo"
 import HostVanPricing from "./pages/host/HostVanPricing"
 import HostVanPhotos from "./pages/host/HostVanPhotos"
+import ReviewTrip, { loader as reviewTripLoader, action as reviewTripAction } from "./pages/ReviewTrip"
 import NotFound from "./pages/NotFound"
 import ErrorPage from "./components/Error"
 import Login, { loader as loginLoader, action as loginAction } from "./pages/Login"
 import Register, { action as registerAction } from "./pages/Register"
 import AddVan, { loader as addVanLoader, action as addVanAction } from "./pages/host/AddVan"
 import EditVan, { loader as editVanLoader, action as editVanAction } from "./pages/host/EditVan"
+import RentVan, { loader as rentVanLoader, action as rentVanAction } from "./pages/vans/RentVan"
+import Trips, { loader as tripsLoader } from "./pages/Trips"
 import { requireAuth } from "./utils/requireAuth"
 
 
@@ -32,15 +35,18 @@ const router = createBrowserRouter(createRoutesFromElements(
     <Route path="login" element={<Login />} loader={loginLoader} action={loginAction} />
     <Route path="vans" element={<Vans />} loader={vansLoader} />
     <Route path="vans/:id" element={<VanDetail />} loader={vanDetailLoader} />
+    <Route path="vans/:id/rent" element={<RentVan />} loader={rentVanLoader} action={rentVanAction} />
+    <Route path="trips" element={<Trips />} loader={tripsLoader} />
+    <Route path="trips/:id/review" element={<ReviewTrip />} loader={reviewTripLoader} action={reviewTripAction} />
 
     <Route
       path="host"
       element={<HostLayout />}
       loader={requireAuth}
     >
-      <Route index element={<Dashboard />} />
-      <Route path="income" element={<Income />} />
-      <Route path="reviews" element={<Reviews />} />
+      <Route index element={<Dashboard />} loader={dashboardLoader} />
+      <Route path="income" element={<Income />} loader={incomeLoader} />
+      <Route path="reviews" element={<Reviews />} loader={reviewsLoader} />
 
       <Route path="vans" element={<HostVans />} loader={hostVansLoader} />
       <Route path="vans/new" element={<AddVan />} loader={addVanLoader} action={addVanAction} />

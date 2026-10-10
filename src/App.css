@@ -33,6 +33,43 @@ header {
     padding-block: 10px;
 }
 
+header nav {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.login-icon {
+    width: 24px;
+    height: 24px;
+    display: block;
+}
+
+@media (max-width: 640px) {
+    header {
+        height: auto;
+        flex-wrap: wrap;
+        row-gap: 6px;
+        padding: 14px 8px;
+    }
+
+    header .site-logo {
+        font-size: 22px;
+    }
+
+    /* Nav drops to its own row and spreads across the full width */
+    header nav {
+        flex: 1 0 100%;
+        justify-content: space-between;
+    }
+
+    header nav a,
+    .logout-button {
+        padding: 5px 8px;
+        font-size: 0.95rem;
+    }
+}
+
 header .site-logo {
     color: black;
     margin-right: auto;
@@ -52,6 +89,40 @@ header a:hover {
     color: #161616;
     text-decoration: underline;
 }
+
+
+/*** AUTH ***/
+.login-form > input:not(:first-of-type) {
+    border-top: none;
+}
+
+.login-switch {
+    margin-top: 24px;
+    color: #4D4D4D;
+}
+
+.login-switch a {
+    color: #FF8C38;
+    font-weight: 600;
+}
+
+
+.logout-button {
+    background: none;
+    border: none;
+    font-family: "Inter", sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #4D4D4D;
+    padding: 5px 20px;
+    cursor: pointer;
+}
+
+.logout-button:hover {
+    color: #161616;
+    text-decoration: underline;
+}
+
 
 main {
     margin-bottom: 84px;
@@ -317,6 +388,7 @@ i[class*='van-type-'] {
 
 .host-nav {
     display: flex;
+    flex-wrap: wrap;
 }
 
 .host-nav a {
@@ -330,6 +402,18 @@ i[class*='van-type-'] {
     color: #161616;
     text-decoration: underline;
     font-weight: 600;
+}
+
+@media (max-width: 640px) {
+    .host-nav {
+        justify-content: space-between;
+        padding-inline: 8px;
+    }
+
+    .host-nav a {
+        padding: 5px 8px;
+        font-size: 0.95rem;
+    }
 }
 
 .host-van-link-wrapper {
@@ -513,42 +597,6 @@ i[class*='van-type-'] {
     color: red;
 }
 
-/*** AUTH ***/
-.login-form > input:not(:first-of-type) {
-    border-top: none;
-}
-
-.login-switch {
-    margin-top: 24px;
-    color: #4D4D4D;
-}
-
-.login-switch a {
-    color: #FF8C38;
-    font-weight: 600;
-}
-
-header nav {
-    display: flex;
-    align-items: center;
-}
-
-.logout-button {
-    background: none;
-    border: none;
-    font-family: "Inter", sans-serif;
-    font-size: 1rem;
-    font-weight: 600;
-    color: #4D4D4D;
-    padding: 5px 20px;
-    cursor: pointer;
-}
-
-.logout-button:hover {
-    color: #161616;
-    text-decoration: underline;
-}
-
 /*** HOST VAN FORMS ***/
 .host-vans-header {
     display: flex;
@@ -636,4 +684,291 @@ header nav {
     background-color: transparent;
     color: #B91C1C;
     border: 1px solid #B91C1C;
+}
+
+/*** DASHBOARD ***/
+.dashboard {
+    padding-inline: 26px;
+}
+
+.dashboard-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 16px;
+    margin-block: 24px;
+}
+
+.dashboard-stat {
+    background-color: #FFEAD0;
+    border-radius: 5px;
+    padding: 20px 24px;
+    color: #161616;
+}
+
+.dashboard-stat p {
+    margin: 0;
+    color: #4D4D4D;
+    font-weight: 500;
+}
+
+.dashboard-stat h2 {
+    margin: 8px 0 0;
+    font-size: 2rem;
+}
+
+.dashboard-stat h2 span {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #4D4D4D;
+}
+
+.dashboard-types {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 36px;
+}
+
+.dashboard-type {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    font-size: 1.25rem;
+}
+
+.dashboard-vans-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+}
+
+.dashboard-vans-header a {
+    color: #4D4D4D;
+    font-weight: 500;
+}
+
+.dashboard-empty {
+    margin-top: 24px;
+}
+
+.dashboard-empty .link-button {
+    margin-top: 12px;
+}
+
+.error-container {
+    padding: 26px;
+}
+
+.error-container .link-button {
+    background-color: #161616;
+    color: white;
+}
+
+/*** RENTALS ***/
+.rent-summary {
+    margin: 22px 0 0;
+    font-size: 1.125rem;
+    color: #161616;
+}
+
+.trip-success {
+    margin-inline: 26px;
+    padding: 12px 16px;
+    border-radius: 5px;
+    background-color: #FFEAD0;
+    color: #161616;
+    font-weight: 600;
+}
+
+.income-chart {
+    display: flex;
+    align-items: flex-end;
+    gap: 12px;
+    height: 200px;
+    margin-bottom: 36px;
+}
+
+.income-bar-wrapper {
+    flex: 1;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.income-bar {
+    width: 100%;
+    min-height: 2px;
+    background-color: #FF8C38;
+    border-radius: 5px 5px 0 0;
+}
+
+.income-bar-amount {
+    font-size: 0.8rem;
+    color: #4D4D4D;
+    margin-bottom: 4px;
+}
+
+.income-bar-label {
+    margin-top: 6px;
+    font-weight: 600;
+    color: #4D4D4D;
+}
+
+.income-row {
+    padding-right: 24px;
+}
+
+.income-amount {
+    margin-left: auto;
+    font-size: 1.25rem;
+}
+
+/*** REVIEWS ***/
+.stars {
+    color: #FF8C38;
+    letter-spacing: 2px;
+}
+
+.stars-empty {
+    color: #D1D5DB;
+}
+
+.trip-review {
+    margin-top: 6px;
+}
+
+.trip-review a {
+    color: #FF8C38;
+    font-weight: 600;
+}
+
+.trip-review span {
+    color: #4D4D4D;
+    font-size: 0.9rem;
+}
+
+.van-reviews {
+    margin-top: 48px;
+    color: #161616;
+}
+
+.review-summary {
+    font-weight: 600;
+}
+
+.review-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+
+.review {
+    background-color: white;
+    border-radius: 5px;
+    padding: 16px 20px;
+}
+
+.review h4 {
+    margin: 6px 0 2px;
+}
+
+.review h4 span {
+    font-weight: 400;
+    color: #4D4D4D;
+}
+
+.review time {
+    font-size: 0.85rem;
+    color: #4D4D4D;
+}
+
+.review p {
+    margin: 10px 0 0;
+    line-height: 22px;
+}
+
+.reviews-overview {
+    display: flex;
+    gap: 32px;
+    align-items: center;
+    margin-block: 24px 36px;
+}
+
+.reviews-average {
+    text-align: center;
+    background-color: #FFEAD0;
+    border-radius: 5px;
+    padding: 20px 28px;
+}
+
+.reviews-average h2 {
+    margin: 0;
+    font-size: 2.5rem;
+}
+
+.reviews-average p {
+    margin: 6px 0 0;
+    color: #4D4D4D;
+}
+
+.reviews-breakdown {
+    flex: 1;
+}
+
+.rating-row {
+    display: grid;
+    grid-template-columns: 36px 1fr 24px;
+    align-items: center;
+    gap: 10px;
+    margin-block: 6px;
+    font-weight: 500;
+}
+
+.rating-track {
+    height: 10px;
+    background-color: #FFEAD0;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.rating-fill {
+    height: 100%;
+    background-color: #FF8C38;
+}
+
+/* Star picker: DOM order is 5 to 1, shown reversed so hover fills leftwards */
+.star-input {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+}
+
+.star-input input {
+    position: absolute;
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+}
+
+.star-input label {
+    margin: 0;
+    font-size: 2.25rem;
+    font-weight: 400;
+    line-height: 1;
+    color: #D1D5DB;
+    cursor: pointer;
+}
+
+.star-input input:checked ~ label,
+.star-input label:hover,
+.star-input label:hover ~ label {
+    color: #FF8C38;
+}
+
+.star-input input:focus-visible + label {
+    outline: 2px solid #FF8C38;
 }
