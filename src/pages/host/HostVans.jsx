@@ -1,9 +1,10 @@
 import { Link, useLoaderData } from "react-router-dom"
-import { getHostVans } from "../../api"
-import { requireAuth } from "../../utils"
+import { getHostVans } from "../../api/vans.api"
+import { requireAuth } from "../../utils/requireAuth"
 import { Suspense, use } from "react"
 
-export async function loader() {
+export async function loader({ request }) {
+  await requireAuth({ request })
   return { hostVans: getHostVans() }
 }
 
@@ -12,7 +13,15 @@ const HostVans = () => {
 
   function VansList({ vansPromise }) {
     const vans = use(vansPromise)
-  
+
+    if (vans.length === 0) {
+      return (
+        <div className="host-vans-list">
+          <p>You haven't listed any vans yet. Add your first one to get started.</p>
+        </div>
+      )
+    }
+
     const hostVansEls = vans.map(van => (
       <Link
         to={van.id}
@@ -42,9 +51,12 @@ const HostVans = () => {
 
   return (
     <section>
-      <h1 className="host-vans-title">Your listed vans</h1>
+      <div className="host-vans-header">
+        <h1 className="host-vans-title">Your listed vans</h1>
+        <Link to="new" className="link-button add-van-button">Add a van</Link>
+      </div>
       <Suspense fallback={<h2>Loading vans...</h2>}>
-        <VansList vansPromise={dataPromise.hostVans}/>
+        <VansList vansPromise={dataPromise.hostVans} />
       </Suspense>
     </section>
   )

@@ -1,15 +1,14 @@
-import { useRouteError } from "react-router-dom";
+import { Link, useRouteError } from "react-router-dom"
 
 export default function ErrorPage() {
-  const error = useRouteError();
-
-  console.log("ERROR PAGE RECEIVED:", error);
-  console.log("instanceof Response?", error instanceof Response);
-  console.log("full error object:", error);
+  const error = useRouteError()
+  const message = error?.message || error?.statusText || "Something went wrong."
 
   return (
-    <div>
-      <h1>Error: {error.message}</h1>
+    <div className="error-container">
+      <h1>Error: {message}</h1>
+      {error?.status && <p>Status code: {error.status}</p>}
+      <Link to="/" className="link-button">Back to home</Link>
     </div>
-  );
+  )
 }

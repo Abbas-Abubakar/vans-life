@@ -1,6 +1,6 @@
 
 import { Await, Link, useLoaderData, useSearchParams } from "react-router-dom"
-import { getVans } from "../../api"
+import { getVans } from "../../api/vans.api"
 import { Suspense, use } from "react"
 
 export function loader() {

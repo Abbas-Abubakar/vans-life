@@ -1,6 +1,6 @@
 
 import { useLocation, Link, useLoaderData } from "react-router-dom"
-import { getVans } from "../../api"
+import { getVans } from "../../api/vans.api"
 import { Suspense, use } from "react"
 
 export function loader({ params }) {
@@ -13,7 +13,7 @@ const VanDetail = () => {
 
   const location = useLocation()
 
-  const search = `?${location.state?.search}` || ""
+ const search = location.state?.search ? `?${location.state.search}` : ""
   const type = location.state?.type || "all"
 
   function Van({ vanPromise }) {

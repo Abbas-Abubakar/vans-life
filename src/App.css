@@ -512,3 +512,128 @@ i[class*='van-type-'] {
 .red {
     color: red;
 }
+
+/*** AUTH ***/
+.login-form > input:not(:first-of-type) {
+    border-top: none;
+}
+
+.login-switch {
+    margin-top: 24px;
+    color: #4D4D4D;
+}
+
+.login-switch a {
+    color: #FF8C38;
+    font-weight: 600;
+}
+
+header nav {
+    display: flex;
+    align-items: center;
+}
+
+.logout-button {
+    background: none;
+    border: none;
+    font-family: "Inter", sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #4D4D4D;
+    padding: 5px 20px;
+    cursor: pointer;
+}
+
+.logout-button:hover {
+    color: #161616;
+    text-decoration: underline;
+}
+
+/*** HOST VAN FORMS ***/
+.host-vans-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-right: 26px;
+}
+
+.add-van-button {
+    background-color: #FF8C38;
+    color: white;
+    padding: .5rem 1.25rem;
+}
+
+.van-form-container {
+    padding-inline: 26px;
+}
+
+.van-form {
+    display: flex;
+    flex-direction: column;
+    max-width: 500px;
+}
+
+.van-form label {
+    font-weight: 600;
+    margin: 18px 0 6px;
+    color: #161616;
+}
+
+.van-form input,
+.van-form select,
+.van-form textarea {
+    border: 1px solid rgb(209, 213, 219);
+    border-radius: 6px;
+    padding: 10px;
+    font-family: "Inter", sans-serif;
+    font-size: 1rem;
+    background-color: white;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.van-form input:focus,
+.van-form select:focus,
+.van-form textarea:focus {
+    outline: 2px solid #FF8C38;
+    outline-offset: -1px;
+}
+
+.van-form-preview {
+    max-width: 240px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.van-form > button {
+    background-color: #FF8C38;
+    border: none;
+    border-radius: 6px;
+    height: 55px;
+    margin-top: 28px;
+    color: white;
+    font-family: "Inter", sans-serif;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.van-form > button:disabled {
+    background-color: #FFCC8D;
+    cursor: not-allowed;
+}
+
+.host-van-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 32px;
+}
+
+.edit-button {
+    background-color: #161616;
+    color: white;
+}
+
+.delete-button {
+    background-color: transparent;
+    color: #B91C1C;
+    border: 1px solid #B91C1C;
+}

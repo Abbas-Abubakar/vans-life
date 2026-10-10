@@ -1,11 +1,17 @@
-import { Link, NavLink, Outlet, useLoaderData } from "react-router-dom"
-import { getHostVans } from "../../api"
-import { requireAuth } from "../../utils"
+import { Form, Link, NavLink, Outlet, useLoaderData } from "react-router-dom"
+import { getHostVans, deleteVan } from "../../api/vans.api"
+import { requireAuth } from "../../utils/requireAuth"
 import { Suspense, use } from "react"
 
-export async function loader({ params }) {
+export async function loader({ request, params }) {
+  await requireAuth({ request })
+  return { hostVan: getHostVans(params.id) }
+}
 
-  return {hostVan: getHostVans(params.id)}
+export async function deleteAction({ request, params }) {
+  await requireAuth({ request })
+  await deleteVan(params.id)
+  return redirect("/host/vans")
 }
 
 const HostVanDetail = () => {
@@ -17,11 +23,11 @@ const HostVanDetail = () => {
     color: "#161616"
   }
 
-  function HostVan ({ vanPromise }){
+  function HostVan({ vanPromise }) {
     const currentVan = use(vanPromise)
 
     return (
-       <div className="host-van-detail-layout-container">
+      <div className="host-van-detail-layout-container">
         <div className="host-van-detail">
           <img src={currentVan.imageUrl} />
           <div className="host-van-detail-info-text">
@@ -57,6 +63,18 @@ const HostVanDetail = () => {
           </NavLink>
         </nav>
         <Outlet context={{ currentVan }} />
+        <div className="host-van-actions">
+          <Link to="edit" className="link-button edit-button">Edit van</Link>
+          <Form
+            method="post"
+            action="delete"
+            onSubmit={(e) => {
+              if (!confirm("Delete this van? This can't be undone.")) e.preventDefault()
+            }}
+          >
+            <button className="link-button delete-button">Delete van</button>
+          </Form>
+        </div>
       </div>
     )
   }
@@ -69,9 +87,9 @@ const HostVanDetail = () => {
         className="back-button"
       >&larr; <span>Back to all vans</span></Link>
       <Suspense fallback={<h2>Loading van...</h2>}>
-        <HostVan vanPromise={dataPromise.hostVan}/>
+        <HostVan vanPromise={dataPromise.hostVan} />
       </Suspense>
-     
+
     </section>
   )
 }
