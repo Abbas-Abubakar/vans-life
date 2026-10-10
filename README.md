@@ -12,7 +12,7 @@ You can register your own account, or use the demo accounts below.
 | Role | Email | Password |
 |---|---|---|
 | Host (has vans, bookings and reviews) | john@example.com | john123 |
-| Traveler (has trips) | maya@example.com |  |
+| Traveler (has trips) | maya@example.com | Password123 |
 
 Log in as the host to explore the Dashboard, Income and Reviews pages.
 Log in as the traveler to book a van and review a finished trip.
